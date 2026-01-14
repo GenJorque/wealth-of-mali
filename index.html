@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Wealth of Mali — 700 Years</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: radial-gradient(circle at top, #3b2a16, #0e0b07);
+      color: #f5e6c8;
+    }
+
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.85)),
+                  url('https://images.unsplash.com/photo-1549887534-1541e9326642');
+      background-size: cover;
+      background-position: center;
+    }
+
+    header h1 {
+      font-size: 4rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 5rem 10%;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #ffd27d;
+    }
+
+    .era {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: rgba(255, 215, 130, 0.08);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    }
+
+    .timeline {
+      margin-top: 4rem;
+      position: relative;
+      padding-left: 2rem;
+      border-left: 3px solid #ffd27d;
+    }
+
+    .event {
+      margin-bottom: 3rem;
+    }
+
+    .event span {
+      color: #ffd27d;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      padding: 3rem 10%;
+      text-align: center;
+      background: #0b0805;
+      color: #cbb891;
+      font-size: 0.9rem;
+    }
+
+    canvas {
+      width: 100%;
+      max-width: 900px;
+      height: 400px;
+      margin: 3rem auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>The Wealth of Mali</h1>
+    <p>Tracing the rise, fall, and resilience of one of history’s richest civilizations — from the golden age of Mansa Musa to the modern era.</p>
+  </div>
+</header>
+
+<section>
+  <h2>Golden Age (1300s)</h2>
+  <div class="era">
+    <div class="card">
+      <p>The Mali Empire controlled vast gold reserves and trans-Saharan trade routes. Under Mansa Musa, Mali became synonymous with unimaginable wealth, learning, and global influence.</p>
+    </div>
+    <div class="card">
+      <p>Timbuktu emerged as a world center of knowledge, housing libraries, universities, and scholars from across Africa and the Islamic world.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Decline & Fragmentation (1500–1700)</h2>
+  <div class="era">
+    <div class="card">
+      <p>Internal conflict, shifting trade routes, and external pressure weakened Mali’s economic dominance.</p>
+    </div>
+    <div class="card">
+      <p>As Atlantic trade bypassed the Sahara, Mali’s gold wealth slowly lost its global leverage.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Colonial Era (1800s–1900s)</h2>
+  <div class="era">
+    <div class="card">
+      <p>Colonial extraction redirected wealth outward, disrupting local economic systems and traditional governance.</p>
+    </div>
+    <div class="card">
+      <p>Despite hardship, Mali’s cultural identity and historical legacy endured.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Modern Mali (2000–Today)</h2>
+  <div class="era">
+    <div class="card">
+      <p>Today, Mali’s economy reflects gradual recovery, driven by agriculture, gold mining, and regional trade.</p>
+    </div>
+    <div class="card">
+      <p>The story of Mali’s wealth remains one of resilience — a nation shaped by one of the greatest empires in history.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>700-Year Wealth Timeline</h2>
+  <canvas id="chart"></canvas>
+</section>
+
+<footer>
+  <p>© 2026 The Wealth of Mali • Educational Historical Visualization</p>
+</footer>
+
+<script>
+  const canvas = document.getElementById('chart');
+  const ctx = canvas.getContext('2d');
+
+  const data = [100, 80, 70, 50, 40, 30, 35, 45, 50];
+  const labels = ['1300', '1400', '1500', '1600', '1700', '1800', '1900', '2000', 'Today'];
+
+  const w = canvas.width = canvas.offsetWidth;
+  const h = canvas.height = 400;
+
+  ctx.strokeStyle = '#ffd27d';
+  ctx.lineWidth = 4;
+
+  ctx.beginPath();
+  data.forEach((val, i) => {
+    const x = (i / (data.length - 1)) * (w - 40) + 20;
+    const y = h - (val / 100) * (h - 40) - 20;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  ctx.fillStyle = '#ffd27d';
+  labels.forEach((label, i) => {
+    const x = (i / (labels.length - 1)) * (w - 40) + 20;
+    ctx.fillText(label, x - 10, h - 5);
+  });
+</script>
+
+</body>
+</html>
